@@ -10,15 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseOrleans(siloBuilder =>
 {
     siloBuilder.UseLocalhostClustering();
-    siloBuilder.AddAzureBlobGrainStorage("urls",
-        // Recommended: Connect to Blob Storage using DefaultAzureCredential
-        options =>
-        {
-            options.ConfigureBlobServiceClient(new Uri("https://<your-account-name>.blob.core.windows.net"),
-                new DefaultAzureCredential());
-        });
-    // Connect to Blob Storage using Connection strings
-    // options => options.ConfigureBlobServiceClient(connectionString));
+    siloBuilder.AddMemoryGrainStorage("urls");
+    //siloBuilder.AddAzureBlobGrainStorage("urls",
+    //    // Recommended: Connect to Blob Storage using DefaultAzureCredential
+    //    options =>
+    //    {
+    //        options.ConfigureBlobServiceClient(new Uri("https://<your-account-name>.blob.core.windows.net"),
+    //            new DefaultAzureCredential());
+    //    });
+    //// Connect to Blob Storage using Connection strings
+    //// options => options.ConfigureBlobServiceClient(connectionString));
 });
 
 var app = builder.Build();
